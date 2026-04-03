@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+CLAUDE.md
+.claude
+nitpick.postman_collection.json
 
 node_modules
 dist
