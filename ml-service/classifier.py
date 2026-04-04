@@ -23,4 +23,15 @@ os.makedirs('models', exist_ok=True)
 with open('models/classifier.pkl', 'wb') as f:
     pickle.dump(model, f)
 
+test_sentences = [
+  "This function stores passwords in plaintext", 
+  "The loop runs even after the condition is met", 
+  "Variable names are not descriptive",
+  "This iterates the entire list on every call"
+]
+
+predictions = model.predict(test_sentences)
+for sentence, prediction in zip(test_sentences, predictions):
+    print(f"{prediction}: {sentence}") 
+
 print(f"Training complete")
