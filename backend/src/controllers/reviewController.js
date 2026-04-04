@@ -1,4 +1,5 @@
-import { getReviewFromGemini } from '../lib/gemini.js';
+// import { getReviewFromGemini } from '../lib/gemini.js';
+import { getReviewFromGroq } from '../lib/groq.js';
 import Review from '../models/Review.js';
 
 export const sendCode = async (req, res) => {
@@ -12,13 +13,16 @@ export const sendCode = async (req, res) => {
 
 		const user = req.user;
 
-		const geminiResponse = await getReviewFromGemini(code);
+		// gemini logic, small rate limit, might use...
+		// const geminiResponse = await getReviewFromGemini(code);
+		// geminiResponse.forEach((element) => {
+		// 	critiquesList.push({ text: element, category: 'test' });
+		// });
 
-		console.log(geminiResponse);
-
+		const groqResponse = await getReviewFromGroq(code);
 		const critiquesList = [];
 
-		geminiResponse.forEach((element) => {
+		groqResponse.forEach((element) => {
 			critiquesList.push({ text: element, category: 'test' });
 		});
 

@@ -7,7 +7,7 @@ const reviewSchema = new mongoose.Schema(
 			ref: 'User',
 			required: true,
 		},
-		code: {
+		submittedCode: {
 			type: String,
 			required: true,
 		},
