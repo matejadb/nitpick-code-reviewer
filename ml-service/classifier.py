@@ -5,22 +5,22 @@ from sklearn.pipeline import Pipeline
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 
-# import csv
 df = pd.read_csv('data/training_data.csv')
 df['category'] = df['category'].str.strip()
+df = df.drop_duplicates(subset='text')
+
 X = df["text"]
 y = df["category"]
 
-# model
 model = Pipeline([
-  ('tfidf', TfidfVectorizer()),
-  ('clf', LogisticRegression())
+    ('tfidf', TfidfVectorizer()),
+    ('clf', LogisticRegression())
 ])
 
 model.fit(X, y)
 
 os.makedirs('models', exist_ok=True)
 with open('models/classifier.pkl', 'wb') as f:
-  pickle.dump(model, f)
+    pickle.dump(model, f)
 
-print("Model trained and saved successfully!")
+print(f"Training complete")
