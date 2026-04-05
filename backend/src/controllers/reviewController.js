@@ -1,4 +1,6 @@
 // import { getReviewFromGemini } from '../lib/gemini.js';
+import axios from 'axios';
+
 import { getReviewFromGroq } from '../lib/groq.js';
 import Review from '../models/Review.js';
 
@@ -22,9 +24,13 @@ export const sendCode = async (req, res) => {
 		const groqResponse = await getReviewFromGroq(code);
 		const critiquesList = [];
 
-		groqResponse.forEach((element) => {
-			critiquesList.push({ text: element, category: 'test' });
-		});
+		for (const element of groqResponse) {
+			const category = await axios.post('http://localhost:5001/classify', {
+				text: element,
+			});
+
+			critiquesList.push({ text: element, category: category.data.category });
+		}
 
 		const newReview = new Review({
 			userId: user._id,
