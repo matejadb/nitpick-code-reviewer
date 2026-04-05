@@ -734,4 +734,100 @@ The dependency has a known remote code execution vulnerability and must be updat
 The regex used for email validation is susceptible to ReDoS with crafted long input strings, security
 The HTTP response does not set the X-Content-Type-Options header enabling MIME sniffing attacks, security
 The username enumeration is possible because login returns different error messages for unknown users, security
-The XML parser has external entity processing enabled making it vulnerable to XXE attacks, security
+The API key is embedded directly in the client-side JavaScript where it is publicly visible,security
+User-supplied input is interpolated into the shell command without escaping,security
+The CSRF token is not verified on state-changing POST requests,security
+The login endpoint has no brute-force protection or lockout after repeated failures,security
+The JWT secret is a short hardcoded string that can be cracked offline,security
+The redirect URL after login is not validated allowing open redirect attacks,security
+The deserialized object comes from an untrusted source with no integrity check,security
+The HTTP-only flag is not set on the session cookie making it readable by JavaScript,security
+The old password is not required when changing to a new password,security
+SQL parameters are built by string concatenation instead of using prepared statements,security
+The file path accepted from the user is not normalized allowing directory traversal,security
+Server-side template injection is possible because user input is rendered in the template engine,security
+The cryptographic nonce is reused across multiple encryption operations,security
+User-controlled data is returned in an error message exposing internal state,security
+The dependency pinned in requirements.txt has a published CVE for arbitrary code execution,security
+The S3 bucket policy allows public read access to sensitive configuration files,security
+The email enumeration vulnerability reveals whether an account exists via different response messages,security
+Cookies are sent over HTTP because the Secure attribute is not set,security
+The private RSA key is stored unencrypted in the repository,security
+The function always returns true making authorization checks completely ineffective,bug
+The variable is declared but never assigned causing every read to return undefined,bug
+The loop index starts at 1 instead of 0 so the first element is always skipped,bug
+The promise rejection is not caught so errors are silently swallowed,bug
+The config object is mutated inside the function affecting all callers that share the reference,bug
+The event listener is added on every render but never removed causing a memory leak,bug
+The condition checks the wrong variable so the early exit never triggers,bug
+The default parameter value is a mutable object shared across all calls,bug
+The timeout handle is not stored so it can never be cancelled,bug
+The integer overflow wraps around to a negative value on large inputs,bug
+Both branches of the conditional call the same function making one branch redundant,bug
+The function returns a new array on every call breaking referential equality checks in the UI,bug
+The database transaction is never committed so all writes are silently rolled back,bug
+The error from the child process is ignored and the parent reports success regardless,bug
+The class method references this but the function is passed as a callback without binding,bug
+The date comparison uses string ordering which fails for different month lengths,bug
+The queue is drained but the drain event is never re-enabled so subsequent writes block,bug
+The flag that disables the feature in production is set to the wrong value,bug
+The string split produces an empty first element that is passed downstream as a valid value,bug
+The async iterator is not fully consumed on early return leaving the resource open,bug
+The hot code path creates a new regular expression object on every invocation instead of caching it,performance
+All records are fetched from the database before filtering instead of adding a WHERE clause,performance
+The O(n log n) sort runs on every keystroke instead of being debounced,performance
+The React component subscribes to the global store and re-renders on every unrelated state change,performance
+The thumbnail is generated synchronously in the HTTP handler blocking the response for seconds,performance
+The token refresh check runs on every API call instead of only when the token is near expiry,performance
+Pagination is not implemented so the entire table is transferred to the client,performance
+The child components are not memoized so they re-render whenever the parent updates,performance
+The file is read from disk on every request instead of being cached after the first load,performance
+The batch insert is replaced by individual inserts inside a loop creating excessive round trips,performance
+The CSS animation forces a layout reflow on every frame degrading scroll performance,performance
+The full search index is loaded into memory at startup instead of using an indexed query,performance
+The blob is converted to base64 in the main thread instead of a web worker,performance
+Promise.all is not used and the independent network requests are made sequentially,performance
+The query selects all columns including large blobs that are never used by the caller,performance
+The object spread inside the render function creates a new reference on every render,performance
+The computationally expensive hash is recalculated for every comparison instead of being stored,performance
+The audio buffer is not released after playback causing memory to grow with every track played,performance
+The session store uses a naive in-memory map with no TTL causing unbounded growth under load,performance
+The CI pipeline builds the Docker image without layer caching making every run needlessly slow,performance
+The function name getSomething performs a write operation which is misleading and violates naming conventions,style
+The boolean variable isSuccess is assigned the value of a comparison that should be extracted with a clear name,style
+The constant is defined as a magic number inline rather than being declared with a descriptive name,style
+The method is 120 lines long and handles both parsing and persistence which should be two separate concerns,style
+The file has both Unix and Windows line endings mixed throughout,style
+The parameter is named data which gives no hint about the expected shape or type,style
+The test case has no assertion and will always pass regardless of what the function returns,style
+The exported function is untested because no unit test file exists for this module,style
+The configuration object has inconsistent key casing mixing camelCase and snake_case,style
+The condition is negated twice making it equivalent to a positive check that is harder to read,style
+Dead code that is never called has been left in the file for over a year,style
+The callback pyramid reaches five levels of nesting and should be refactored using async/await,style
+The switch statement is missing a default case so unrecognized inputs are silently ignored,style
+The TypeScript type is declared as any defeating the purpose of static typing,style
+The environment check uses a raw string comparison instead of a dedicated config utility,style
+The exported constant and the internal helper have the same name creating a naming collision,style
+The comment explains what the code does rather than why which adds no value,style
+The TODO comment has been present since the initial commit with no owner or ticket reference,style
+The CSS class names are non-semantic identifiers like box1 and div2 that convey no meaning,style
+The function signature lists seven parameters which should be consolidated into an options object,style
+This function stores passwords in plaintext without hashing,security
+Passwords are stored without encryption making them readable if the database is breached,security
+Plaintext passwords are saved directly to the database,security
+The password field is stored as plain text in the users table,security
+User passwords are logged in cleartext to the console,security
+The login credentials are transmitted over HTTP rather than HTTPS,security
+Sensitive user data is written to a log file without masking,security
+The token is hardcoded as a string literal in the configuration file,security
+User input is injected into an eval call without sanitization,security
+The session does not invalidate on logout leaving the token reusable,security
+The variable name conveys no meaning about what it holds,style
+Single-letter variable names like x and y make the code hard to follow,style
+The function name does not describe what it actually does,style
+Renaming this variable to something descriptive would improve readability,style
+This identifier needs a more descriptive name to clarify its purpose,style
+The method name is ambiguous and should be renamed to reflect its responsibility,style
+The naming convention is inconsistent with the rest of the codebase,style
+Short variable names reduce the readability of this logic,style
