@@ -1,12 +1,16 @@
-import Navbar from '../components/Navbar';
+import Navbar from "../components/Navbar";
+import { useAuthStore } from "../store/useAuthStore";
 
 function HomePage() {
-	return (
-		<div>
-			<Navbar />
-			HOME PAGE
-		</div>
-	);
+  const { authUser, logout } = useAuthStore();
+
+  return (
+    <div>
+      <Navbar />
+
+      {authUser && <button onClick={logout}>logout user</button>}
+    </div>
+  );
 }
 
 export default HomePage;

@@ -4,6 +4,8 @@ import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -29,6 +31,8 @@ function App() {
           path="/login"
           element={!authUser ? <LoginPage /> : <Navigate to="/" />}
         />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </>
   );
