@@ -31,7 +31,7 @@ export const register = async (req, res) => {
 		});
 
 		// generate jwt
-		generateToken(newUser._id, res);
+		// generateToken(newUser._id, res);
 		await newUser.save();
 
 		await sendVerificationMail(email, verificationToken);
@@ -80,6 +80,9 @@ export const login = async (req, res) => {
 		const user = await User.findOne({ email });
 
 		if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+		if (!user.isVerified)
+			return res.status(403).json({ message: 'Please verify your email' });
 
 		const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
