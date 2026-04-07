@@ -1,16 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+import { useAuthStore } from "../store/useAuthStore";
 
 import Logo from "../components/Logo";
 import ShowPassword from "../ui/ShowPassword";
-import { useState } from "react";
 import HidePassword from "../ui/HidePassword";
+import GoogleIcon from "../ui/GoogleIcon";
 
 function LoginPage() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  function handleSubmit(e) {
+  const { login, isLoggingIn, authUser } = useAuthStore();
+
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    try {
+      await login(formData);
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   }
+
+  console.log(authUser);
 
   return (
     <div className="flex min-h-screen flex-col justify-center bg-neutral-700 px-4 py-2.5">
@@ -35,7 +54,7 @@ function LoginPage() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="mail"
-                className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px]"
+                className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px] hover:cursor-pointer"
               >
                 Email Address
               </label>
@@ -47,6 +66,10 @@ function LoginPage() {
                 name="mail"
                 className="font-inter text-neutral-0 w-full flex-1 px-4 py-3 text-sm leading-[1.3] font-normal tracking-[-0.2px] placeholder-neutral-500 focus:outline-none"
                 placeholder="email@example.com"
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
               />
             </div>
           </div>
@@ -56,7 +79,7 @@ function LoginPage() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px]"
+                className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px] hover:cursor-pointer"
               >
                 Password
               </label>
@@ -74,6 +97,10 @@ function LoginPage() {
                 id="password"
                 name="password"
                 className="font-inter text-neutral-0 w-full flex-1 px-4 py-3 text-sm leading-[1.3] font-normal tracking-[-0.2px] placeholder-neutral-500 focus:outline-none"
+                value={formData.password}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
               />
 
               <button
@@ -88,11 +115,36 @@ function LoginPage() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700"
+            className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700 disabled:cursor-not-allowed"
+            disabled={isLoggingIn}
           >
-            Login
+            {isLoggingIn ? "Loading..." : "Login"}
           </button>
         </form>
+
+        <div className="flex w-full flex-col items-center gap-4 border-t border-neutral-800 pt-6">
+          <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
+            Or log in with:
+          </p>
+          <button className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl border-none p-3 outline-1 outline-neutral-600 transition-all duration-200 hover:bg-neutral-800">
+            <GoogleIcon />
+            <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
+              Google
+            </span>
+          </button>
+        </div>
+
+        <div className="w-full border-b border-neutral-800"></div>
+
+        <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
+          No account yet?{" "}
+          <Link
+            to="/register"
+            className="text-neutral-0 transition-all duration-200 hover:text-blue-500"
+          >
+            Register Now
+          </Link>
+        </p>
       </div>
     </div>
   );
