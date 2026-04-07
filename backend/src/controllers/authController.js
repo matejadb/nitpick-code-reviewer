@@ -1,7 +1,9 @@
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 import { generateToken } from '../lib/utils.js';
 import User from '../models/User.js';
+import { sendVerificationMail } from '../lib/nodemailer.js';
 
 export const register = async (req, res) => {
 	const { email, password } = req.body;
@@ -15,21 +17,58 @@ export const register = async (req, res) => {
 
 		if (user) return res.status(400).json({ message: 'Email already in use' });
 
+		// generate activation token
+		const verificationToken = crypto.randomBytes(32).toString('hex');
+
 		// passsword hashing
 		const salt = await bcrypt.genSalt(10);
 		const hashedPassword = await bcrypt.hash(password, salt);
 
-		const newUser = new User({ email, password: hashedPassword });
+		const newUser = new User({
+			email,
+			password: hashedPassword,
+			verificationToken,
+		});
 
-		if (newUser) {
-			// generate jwt
-			generateToken(newUser._id, res);
-			await newUser.save();
+		// generate jwt
+		generateToken(newUser._id, res);
+		await newUser.save();
 
-			res.status(201).json({ _id: newUser._id, email: newUser.email });
-		} else res.status(400).json({ message: 'Invalid user data' });
+		await sendVerificationMail(email, verificationToken);
+
+		res.status(201).json({
+			_id: newUser._id,
+			email: newUser.email,
+			verificationToken: newUser.verificationToken,
+		});
 	} catch (error) {
 		console.log(`Error in register controller: ${error.message}`);
+		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const verifyEmail = async (req, res) => {
+	try {
+		const token = req.query.token;
+		const user = await User.findOne({ verificationToken: token });
+
+		if (!user) return res.status(404).json({ message: 'User not found' });
+
+		const now = new Date();
+
+		if (now > user.verificationTokenExpiry)
+			return res
+				.status(400)
+				.json({ message: 'Verification token has expired.' });
+
+		user.isVerified = true;
+		user.verificationToken = undefined;
+		user.verificationTokenExpiry = undefined;
+
+		await user.save();
+
+		res.status(200).json({ isVerified: true });
+	} catch (error) {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };

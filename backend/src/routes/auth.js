@@ -4,6 +4,7 @@ import {
 	login,
 	logout,
 	register,
+	verifyEmail,
 } from '../controllers/authController.js';
 import { protectedRoute } from '../middleware/authMiddleware.js';
 
@@ -13,6 +14,7 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/logout', logout);
 
+router.get('/verify-email', verifyEmail);
 router.get('/check', protectedRoute, checkAuth);
 
 export default router;
