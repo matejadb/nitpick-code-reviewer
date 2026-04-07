@@ -1,7 +1,14 @@
-import LogoImage from '/assets/logo.svg';
+import LogoImage from "/assets/logo.svg";
 
-function Logo() {
-	return <img src={LogoImage} alt="Nitpick logo" className="w-23.75 h-7" />;
+function Logo({ width, height }) {
+  const toRem = (val) => (typeof val === "number" ? `${val * 0.25}rem` : val);
+  return (
+    <img
+      src={LogoImage}
+      alt="Nitpick logo"
+      style={{ width: toRem(width), height: toRem(height) }}
+    />
+  );
 }
 
 export default Logo;

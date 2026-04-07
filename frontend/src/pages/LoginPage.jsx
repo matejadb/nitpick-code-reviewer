@@ -1,41 +1,37 @@
-import Logo from '../components/Logo';
+import Logo from "../components/Logo";
 
 function LoginPage() {
-	return (
-		<div className="bg-neutral-700 min-h-screen flex flex-col items-center justify-center">
-			<div className=" bg-neutral-950 max-w-135 flex flex-col gap-4 p-12 rounded-2xl items-center text-center">
-				<Logo />
+  return (
+    <div className="flex min-h-screen flex-col justify-center bg-neutral-700 px-4 py-2.5">
+      <div className="flex flex-col items-center gap-4 rounded-2xl border border-neutral-800 bg-neutral-950 px-4 py-12">
+        <Logo width={23.75} height={7} />
 
-				<div className="flex flex-col gap-2 items-center">
-					<h2 className="font-inter font-bold text-neutral-0 text-2xl leading-[1.2] tracking-[-0.05]">
-						Welcome to Nitpick
-					</h2>
-					<p className="font-inter font-normal leading-[1.3] tracking-[-0.2] text-sm text-neutral-300">
-						Please log in to continue
-					</p>
-				</div>
+        <div className="flex flex-col items-center gap-2">
+          <h2 className="text-neutral-0 font-inter text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
+            Welcome to Nitpick
+          </h2>
+          <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
+            Please log in to continue
+          </p>
+        </div>
 
-				<form className="pt-6 flex flex-col gap-4">
-					<div className="flex flex-col gap-1.5">
-						<label
-							className="font-inter text-left  text-neutral-0 font-medium text-sm leading-[1.2] tracking-[-0.2]"
-							htmlFor="mail">
-							Email Address
-						</label>
-						<div className="border border-neutral-600 rounded-lg relative">
-							<input
-								type="email"
-								name="mail"
-								id="mail"
-								className="font-inter font-medium text-sm w-full text-neutral-500 px-4 py-3"
-								placeholder="email@example.com"
-							/>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-	);
+        <form className="flex flex-col gap-4 pt-6">
+          {/* Email Input */}
+          <div>
+            <div>
+              <label
+                htmlFor="mail"
+                className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px]"
+              >
+                Email Address
+              </label>
+            </div>
+            <div></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default LoginPage;
