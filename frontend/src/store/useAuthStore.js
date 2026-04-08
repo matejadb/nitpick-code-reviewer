@@ -20,15 +20,23 @@ export const useAuthStore = create((set) => ({
     }
   },
 
+  verifyEmail: async (token) => {
+    try {
+      await axiosInstance.get(`/auth/verify-email?token=${token}`);
+    } catch (error) {
+      console.log(`error in verifyEmail: ${error.message}`);
+    }
+  },
+
   register: async (data) => {
     set({ isRegistering: true });
 
     try {
       const res = await axiosInstance.post("/auth/register", data);
 
-      set({ authUser: res.data });
+      // set({ authUser: res.data });
 
-      console.log(`succesful login: ${res.data}`);
+      console.log(`Check your email`, res);
     } catch (error) {
       console.log(`Error in register: ${error.message}`);
       throw new Error(error.message);

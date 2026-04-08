@@ -6,6 +6,8 @@ import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
+import ActivateAccountPage from "./pages/ActivateAccountPage";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -33,6 +35,8 @@ function App() {
         />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
+        <Route path="/activate-account" element={<ActivateAccountPage />} />
       </Routes>
     </>
   );
