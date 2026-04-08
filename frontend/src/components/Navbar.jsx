@@ -7,7 +7,7 @@ function Navbar({ onSetMenuOpen }) {
   const { logout } = useAuthStore();
 
   return (
-    <nav className="flex items-center justify-between border-b border-neutral-800 bg-neutral-800 px-2 py-3">
+    <nav className="flex items-center justify-between border-b border-neutral-800 bg-neutral-800 px-4 py-3">
       <div className="flex gap-4">
         <button
           type="button"
