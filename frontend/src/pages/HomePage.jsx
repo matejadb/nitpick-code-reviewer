@@ -9,12 +9,18 @@ function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="flex min-h-screen flex-col bg-neutral-950">
       {authUser && (
         <>
           <Navbar onSetMenuOpen={setIsMenuOpen} />
-          <Sidebar isMenuOpen={isMenuOpen} onSetMenuOpen={setIsMenuOpen} />
-          <CodeEditor />
+          <div className="flex flex-1 flex-col lg:flex-row">
+            <Sidebar isMenuOpen={isMenuOpen} onSetMenuOpen={setIsMenuOpen} />
+            <CodeEditor />
+            <div className="w-96 border-l border-neutral-800 px-6 py-2 text-white">
+              {/* Results panel */}
+              <h1>Analysis results will be shown here</h1>
+            </div>
+          </div>
         </>
       )}
     </div>
