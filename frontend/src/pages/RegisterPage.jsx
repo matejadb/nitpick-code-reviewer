@@ -3,11 +3,12 @@ import Logo from "../components/Logo";
 import ShowPassword from "../ui/ShowPassword";
 import HidePassword from "../ui/HidePassword";
 import GoogleIcon from "../ui/GoogleIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InformationIcon from "../ui/InformationIcon";
 import { useAuthStore } from "../store/useAuthStore";
 
 function RegisterPage() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -30,9 +31,15 @@ function RegisterPage() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const success = validateForm();
+    try {
+      const success = validateForm();
 
-    if (success) register(formData);
+      if (success) register(formData);
+
+      navigate("/activate-account");
+    } catch (error) {
+      throw new Error(`Something went wrong in RegisterPage. ${error.message}`);
+    }
   }
 
   return (

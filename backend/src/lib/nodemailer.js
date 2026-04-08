@@ -1,5 +1,4 @@
 import nodemailer from 'nodemailer';
-import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -30,9 +29,6 @@ export async function sendVerificationMail(email, token) {
 		__dirname,
 		'../../../frontend/public/assets/logo_mail.png',
 	);
-	const logoBase64 = fs.readFileSync(logoPath).toString('base64');
-	const logoSrc = `data:image/png;base64,${logoBase64}`;
-
 	const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +45,7 @@ export async function sendVerificationMail(email, token) {
           <!-- Header -->
           <tr>
             <td style="background:#1a1a2e;padding:32px;text-align:center;">
-             <img src="${logoSrc}" alt="Nitpick" width="95px" height="28px" style="display: block; margin: 0 auto;" />
+             <img src="cid:logo@nitpick" alt="Nitpick" width="95px" height="28px" style="display: block; margin: 0 auto;" />
             </td>
           </tr>
 
@@ -109,6 +105,13 @@ export async function sendVerificationMail(email, token) {
 			subject: 'Activate your account - Nitpick',
 			text: `Activate your Nitpick account here: ${verificationUrl}`,
 			html,
+			attachments: [
+				{
+					filename: 'logo_mail.png',
+					path: logoPath,
+					cid: 'logo@nitpick',
+				},
+			],
 		});
 
 		console.log(info);
