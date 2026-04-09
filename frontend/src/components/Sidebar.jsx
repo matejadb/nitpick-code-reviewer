@@ -5,7 +5,7 @@ import Logo from "./Logo";
 function Sidebar({ isMenuOpen, onSetMenuOpen }) {
   return (
     <div
-      className={`fixed top-0 left-0 h-screen ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} z-100 flex w-full max-w-60 flex-col gap-4 border-r border-neutral-800 bg-neutral-950 px-4 py-3 transition-transform duration-300 lg:relative lg:min-w-68 lg:translate-x-0`}
+      className={`fixed top-0 left-0 h-screen ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} z-100 flex w-full max-w-60 flex-col gap-4 border-r border-neutral-800 bg-neutral-950 px-4 py-3 transition-transform duration-300 lg:relative lg:h-full lg:min-w-68 lg:translate-x-0`}
     >
       <div className="flex items-center justify-between">
         <button
