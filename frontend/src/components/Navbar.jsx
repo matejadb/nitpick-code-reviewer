@@ -19,8 +19,15 @@ function Navbar({ onSetMenuOpen }) {
         <Logo />
       </div>
 
-      <button onClick={logout} className="cursor-pointer">
+      <button onClick={logout} className="cursor-pointer md:hidden">
         <LogOutIcon />
+      </button>
+
+      <button
+        onClick={logout}
+        className="font-inter text-neutral-0 hidden cursor-pointer transition-all duration-200 hover:text-blue-500 md:block"
+      >
+        Log out
       </button>
     </nav>
   );

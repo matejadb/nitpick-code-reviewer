@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CodeEditor from "../components/CodeEditor";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -11,10 +11,14 @@ function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [manualTab, setManualTab] = useState(null);
 
-  const { reviewResult, isSubmitting } = useReviewStore();
+  const { reviewResult, isSubmitting, fetchReviews } = useReviewStore();
   const critiquesList = reviewResult.critiquesList;
 
   const activeTab = manualTab ?? (critiquesList ? "results" : "editor");
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   return (
     <div className="flex h-screen flex-col bg-neutral-950">
