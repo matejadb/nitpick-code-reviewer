@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
+import os
 
+port = int(os.environ.get('PORT', 5001))
 
 with open('models/classifier.pkl', 'rb') as f:
   model = pickle.load(f)
@@ -18,4 +20,4 @@ def classify():
   return jsonify({"category": prediction[0]})
 
 if __name__ == '__main__':
-  app.run(port=5001)
+  app.run(host='0.0.0.0', port=port)
