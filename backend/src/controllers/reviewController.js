@@ -18,9 +18,12 @@ export const sendCode = async (req, res) => {
 		const critiquesList = [];
 
 		for (const element of groqResponse) {
-			const category = await axios.post('http://localhost:5001/classify', {
-				text: element,
-			});
+			const category = await axios.post(
+				`${process.env.ML_SERVICE_URL}/classify`,
+				{
+					text: element,
+				},
+			);
 
 			critiquesList.push({ text: element, category: category.data.category });
 		}
