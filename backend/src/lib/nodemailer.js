@@ -1,34 +1,15 @@
-import nodemailer from 'nodemailer';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const { BrevoClient, BrevoEnvironment } = require('@getbrevo/brevo');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const transporter = nodemailer.createTransport({
-	host: 'smtp.gmail.com',
-	port: 465,
-	secure: true,
-	auth: {
-		user: process.env.SMTP_USER,
-		pass: process.env.SMTP_PASS,
-	},
+const client = new BrevoClient({
+	apiKey: process.env.BREVO_API_KEY,
+	environment: BrevoEnvironment.Production,
 });
-
-try {
-	await transporter.verify();
-	console.log('Server is ready to take our messages');
-} catch (err) {
-	console.error('Verification failed:', err);
-}
 
 export async function sendVerificationMail(email, token) {
 	const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${token}`;
 
-	const logoPath = path.join(
-		__dirname,
-		'../../../frontend/public/assets/logo_mail.png',
-	);
 	const html = `
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +26,7 @@ export async function sendVerificationMail(email, token) {
           <!-- Header -->
           <tr>
             <td style="background:#1a1a2e;padding:32px;text-align:center;">
-             <img src="cid:logo@nitpick" alt="Nitpick" width="95px" height="28px" style="display: block; margin: 0 auto;" />
+             <img src="${process.env.FRONTEND_URL}/assets/logo_mail.png" alt="Nitpick" width="95px" height="28px" style="display: block; margin: 0 auto;" />
             </td>
           </tr>
 
@@ -99,26 +80,15 @@ export async function sendVerificationMail(email, token) {
 </html>`;
 
 	try {
-		const info = await transporter.sendMail({
-			from: `'NitpickSupport' <${process.env.SMTP_USER}>`,
-			to: email,
+		await client.transactionalEmails.sendTransacEmail({
+			sender: { name: 'Nitpick', email: process.env.SMTP_USER },
+			to: [{ email }],
 			subject: 'Activate your account - Nitpick',
-			text: `Activate your Nitpick account here: ${verificationUrl}`,
-			html,
-			attachments: [
-				{
-					filename: 'logo_mail.png',
-					path: logoPath,
-					cid: 'logo@nitpick',
-				},
-			],
+			textContent: `Activate your Nitpick account here: ${verificationUrl}`,
+			htmlContent: html,
 		});
-
-		console.log(info);
 	} catch (error) {
 		console.error(`Error in sendVerificationMail: ${error.message}`);
 		throw new Error(error.message);
 	}
 }
-
-export default transporter;
