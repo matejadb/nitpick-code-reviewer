@@ -4,7 +4,7 @@ import { getReviewFromGroq } from '../lib/groq.js';
 import Review from '../models/Review.js';
 
 export const sendCode = async (req, res) => {
-	const { code } = req.body;
+	const { code, language } = req.body;
 
 	try {
 		if (!code)
@@ -14,7 +14,7 @@ export const sendCode = async (req, res) => {
 
 		const user = req.user;
 
-		const groqResponse = await getReviewFromGroq(code);
+		const groqResponse = await getReviewFromGroq(code, language);
 		const critiquesList = [];
 
 		for (const element of groqResponse) {
@@ -32,6 +32,7 @@ export const sendCode = async (req, res) => {
 			userId: user._id,
 			submittedCode: code,
 			critiquesList,
+			language,
 		});
 
 		await newReview.save();

@@ -1,12 +1,12 @@
 import OpenAI from 'openai';
 
-export const getReviewFromGroq = async (code) => {
+export const getReviewFromGroq = async (code, language) => {
 	const client = new OpenAI({
 		apiKey: process.env.GROQ_API_KEY,
 		baseURL: 'https://api.groq.com/openai/v1',
 	});
 
-	const prompt = `You are an expert code reviewer. Analyze the following code and identify all issues.
+	const prompt = `You are an expert code reviewer. Analyze the following code and identify all issues. The code is written in ${language}
     
     For each issue you find, write exactly one sentence describing the problem.
     Each sentence must be on its own line, starting with "ISSUE:".

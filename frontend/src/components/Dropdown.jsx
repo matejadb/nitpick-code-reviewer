@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-export function Dropdown({ value, options, onChange }) {
+export function Dropdown({ value, options, onChange, disabled }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -20,7 +20,8 @@ export function Dropdown({ value, options, onChange }) {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-1.5 rounded-md border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-white focus:ring-1 focus:ring-blue-500 focus:outline-none"
+        className="flex items-center gap-1.5 rounded-md border border-neutral-700 bg-neutral-900 px-2 py-1 text-sm text-white hover:cursor-pointer hover:bg-neutral-800 focus:ring-1 focus:ring-blue-500 focus:outline-none disabled:cursor-not-allowed"
+        disabled={disabled}
       >
         {selected?.label}
         <svg
