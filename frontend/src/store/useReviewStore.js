@@ -7,11 +7,12 @@ export const useReviewStore = create((set, get) => ({
   reviewResult: {},
   isViewingHistory: false,
   reviewHistory: [],
+  language: "javascript",
 
-  submitCode: async (code) => {
+  submitCode: async (code, language) => {
     set({ isSubmitting: true });
     try {
-      const res = await axiosInstance.post("/review", { code });
+      const res = await axiosInstance.post("/review", { code, language });
 
       set({
         reviewResult: res.data,
@@ -42,6 +43,7 @@ export const useReviewStore = create((set, get) => ({
       reviewResult: review,
       code: review.submittedCode,
       isViewingHistory: true,
+      language: review.language || "javascript",
     });
   },
 
@@ -50,6 +52,15 @@ export const useReviewStore = create((set, get) => ({
   },
 
   resetReview: () => {
-    set({ code: "", reviewResult: {}, isViewingHistory: false });
+    set({
+      code: "",
+      reviewResult: {},
+      isViewingHistory: false,
+      language: "javascript",
+    });
+  },
+
+  setLanguage: (language) => {
+    set({ language });
   },
 }));

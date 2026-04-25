@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
+import { useReviewStore } from "./useReviewStore.js";
 
 export const useAuthStore = create((set) => ({
   authUser: null,
@@ -33,10 +34,6 @@ export const useAuthStore = create((set) => ({
 
     try {
       await axiosInstance.post("/auth/register", data);
-
-      // set({ authUser: res.data });
-
-      // console.log(`Check your email`, res);
     } catch (error) {
       console.log(`Error in register: ${error.message}`);
       throw new Error(error.message);
@@ -62,6 +59,7 @@ export const useAuthStore = create((set) => ({
   logout: async () => {
     try {
       await axiosInstance.post("/auth/logout");
+      useReviewStore.getState().resetReview();
       set({ authUser: null });
     } catch (error) {
       console.log(`Error in logout: ${error.message}`);
