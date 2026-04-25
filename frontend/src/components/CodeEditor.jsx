@@ -3,30 +3,8 @@ import { useState } from "react";
 import PlusIcon from "../ui/PlusIcon";
 import { Dropdown } from "./Dropdown";
 import { useReviewStore } from "../store/useReviewStore";
-
-const LANGUAGES = [
-  { label: "JavaScript", value: "javascript" },
-  { label: "TypeScript", value: "typescript" },
-  { label: "Python", value: "python" },
-  { label: "Java", value: "java" },
-  { label: "C", value: "c" },
-  { label: "C++", value: "cpp" },
-  { label: "C#", value: "csharp" },
-  { label: "Go", value: "go" },
-  { label: "Rust", value: "rust" },
-  { label: "PHP", value: "php" },
-  { label: "Ruby", value: "ruby" },
-  { label: "HTML", value: "html" },
-  { label: "CSS", value: "css" },
-  { label: "SQL", value: "sql" },
-  { label: "JSON", value: "json" },
-];
-
-const THEMES = [
-  { label: "Dark", value: "vs-dark" },
-  { label: "Light", value: "vs" },
-  { label: "High Contrast", value: "hc-black" },
-];
+import { LANGUAGES } from "../constants/LANGUAGES.js";
+import { THEMES } from "../constants/THEMES.js";
 
 function CodeEditor() {
   const {
@@ -40,8 +18,6 @@ function CodeEditor() {
   } = useReviewStore();
 
   const [theme, setTheme] = useState("vs-dark");
-
-  console.log(isViewingHistory);
 
   return (
     <div className="flex min-h-0 flex-1 flex-col">
