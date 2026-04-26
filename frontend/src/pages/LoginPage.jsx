@@ -125,18 +125,6 @@ function LoginPage() {
           </button>
         </form>
 
-        <div className="flex w-full flex-col items-center gap-4 border-t border-neutral-800 pt-6">
-          <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-            Or log in with:
-          </p>
-          <button className="flex w-full cursor-pointer items-center justify-center gap-3 rounded-xl border border-neutral-600 p-3 transition-all duration-200 hover:bg-neutral-800 focus:outline-2 focus:outline-offset-3 focus:outline-neutral-600">
-            <GoogleIcon />
-            <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
-              Google
-            </span>
-          </button>
-        </div>
-
         <div className="w-full border-b border-neutral-800"></div>
 
         <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
