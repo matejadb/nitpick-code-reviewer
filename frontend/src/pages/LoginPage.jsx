@@ -8,6 +8,8 @@ import ShowPassword from "../ui/ShowPassword";
 import HidePassword from "../ui/HidePassword";
 import GoogleIcon from "../ui/GoogleIcon";
 
+import LoadingSpinner from "../components/LoadingSpinner";
+
 function LoginPage() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -28,6 +30,8 @@ function LoginPage() {
       console.error(error.message);
     }
   }
+
+  if (isLoggingIn) return <LoadingSpinner />;
 
   return (
     <div className="flex min-h-screen flex-col justify-center bg-neutral-700 px-4 py-2.5 sm:px-25.5 sm:py-0">

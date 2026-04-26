@@ -7,6 +7,7 @@ export const useReviewStore = create((set, get) => ({
   code: "",
   reviewResult: {},
   isViewingHistory: false,
+  isFetchingReviews: false,
   reviewHistory: [],
   language: "javascript",
 
@@ -31,6 +32,7 @@ export const useReviewStore = create((set, get) => ({
   },
 
   fetchReviews: async () => {
+    set({ isFetchingReviews: true });
     try {
       const res = await axiosInstance.get("/review");
 
@@ -38,6 +40,8 @@ export const useReviewStore = create((set, get) => ({
     } catch (error) {
       console.log(`Error in fetchReviews: ${error.message}`);
       throw new Error(error);
+    } finally {
+      set({ isFetchingReviews: false });
     }
   },
 

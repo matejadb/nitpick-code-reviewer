@@ -5,9 +5,10 @@ import Sidebar from "../components/Sidebar";
 import { useAuthStore } from "../store/useAuthStore";
 import { useReviewStore } from "../store/useReviewStore";
 import Results from "../components/Results";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 function HomePage() {
-  const { authUser } = useAuthStore();
+  const { authUser, isLoggingOut } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [manualTab, setManualTab] = useState(null);
 
@@ -19,6 +20,8 @@ function HomePage() {
   useEffect(() => {
     fetchReviews();
   }, [fetchReviews]);
+
+  if (isLoggingOut) return <LoadingSpinner />;
 
   return (
     <div className="flex h-screen flex-col bg-neutral-950">

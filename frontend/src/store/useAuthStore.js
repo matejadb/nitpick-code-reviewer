@@ -7,6 +7,7 @@ export const useAuthStore = create((set) => ({
   authUser: null,
   isRegistering: false,
   isLoggingIn: false,
+  isLoggingOut: false,
   isCheckingAuth: true,
 
   checkAuth: async () => {
@@ -64,6 +65,7 @@ export const useAuthStore = create((set) => ({
   },
 
   logout: async () => {
+    set({ isLoggingOut: true });
     try {
       await axiosInstance.post("/auth/logout");
       useReviewStore.getState().resetReview();
@@ -73,6 +75,8 @@ export const useAuthStore = create((set) => ({
       toast.error(`${error.response.data.message}`);
       console.log(`Error in logout: ${error.message}`);
       throw new Error(error);
+    } finally {
+      set({ isLoggingOut: false });
     }
   },
 }));

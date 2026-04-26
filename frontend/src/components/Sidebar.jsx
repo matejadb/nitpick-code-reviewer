@@ -1,11 +1,12 @@
 import { useReviewStore } from "../store/useReviewStore";
 import CloseIcon from "../ui/CloseIcon";
 import PlusIcon from "../ui/PlusIcon";
+import LoadingBars from "./LoadingBars";
 import Logo from "./Logo";
 import ReviewHistoryCard from "./ReviewHistoryCard";
 
 function Sidebar({ isMenuOpen, onSetMenuOpen }) {
-  const { reviewHistory, resetReview } = useReviewStore();
+  const { reviewHistory, resetReview, isFetchingReviews } = useReviewStore();
 
   return (
     <div
@@ -48,6 +49,7 @@ function Sidebar({ isMenuOpen, onSetMenuOpen }) {
 
         {/* Review History Goes Here */}
         <ul className="flex h-full flex-col gap-3 overflow-y-scroll">
+          {isFetchingReviews && <LoadingBars />}
           {reviewHistory.map((review) => (
             <ReviewHistoryCard key={review._id} review={review} />
           ))}

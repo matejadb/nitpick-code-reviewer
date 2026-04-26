@@ -5,6 +5,7 @@ import { Dropdown } from "./Dropdown";
 import { useReviewStore } from "../store/useReviewStore";
 import { LANGUAGES } from "../constants/LANGUAGES.js";
 import { THEMES } from "../constants/THEMES.js";
+import LoadingLineWave from "./LoadingLineWave.jsx";
 
 function CodeEditor() {
   const {
@@ -52,10 +53,16 @@ function CodeEditor() {
               onClick={() => submitCode(code, language)}
               disabled={isSubmitting || !code.trim() || isViewingHistory}
             >
-              <PlusIcon />
-              <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
-                Submit For Review
-              </span>
+              {isSubmitting ? (
+                <LoadingLineWave />
+              ) : (
+                <>
+                  <PlusIcon />
+                  <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
+                    Submit For Review
+                  </span>
+                </>
+              )}
             </button>
           )}
         </div>

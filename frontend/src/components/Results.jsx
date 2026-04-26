@@ -1,4 +1,5 @@
 import CritiqueCard from "./CritiqueCard";
+import LoadingBars from "./LoadingBars";
 
 function Results({ critiquesList, isSubmitting }) {
   return (
@@ -16,9 +17,7 @@ function Results({ critiquesList, isSubmitting }) {
 
       {/* Body */}
       <div className="flex flex-1 flex-col gap-3 overflow-y-scroll px-6 py-4">
-        {isSubmitting && (
-          <p className="text-sm text-neutral-400">Analyzing...</p>
-        )}
+        {isSubmitting && <LoadingBars />}
 
         {!isSubmitting && !critiquesList && (
           <p className="text-sm text-neutral-500">

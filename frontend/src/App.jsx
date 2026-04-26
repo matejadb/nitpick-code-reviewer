@@ -10,6 +10,7 @@ import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ActivateAccountPage from "./pages/ActivateAccountPage";
 
 import { Toaster } from "react-hot-toast";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -18,7 +19,7 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  if (isCheckingAuth && !authUser) return <div>Loading...</div>;
+  if (isCheckingAuth && !authUser) return <LoadingSpinner />;
 
   return (
     <>
