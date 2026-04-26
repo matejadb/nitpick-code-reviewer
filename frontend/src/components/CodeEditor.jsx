@@ -46,16 +46,18 @@ function CodeEditor() {
           />
         </div>
         <div className="mb-4 min-h-0">
-          <button
-            className={`font-inter text-neutral-0 flex w-full cursor-pointer items-center justify-center gap-0.5 rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700 focus:outline-2 focus:outline-offset-3 focus:outline-neutral-600 disabled:cursor-not-allowed ${isViewingHistory ? "bg-neutral-700 hover:bg-neutral-700" : ""}`}
-            onClick={() => submitCode(code, language)}
-            disabled={isSubmitting || !code.trim() || isViewingHistory}
-          >
-            <PlusIcon />
-            <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
-              Submit For Review
-            </span>
-          </button>
+          {!isViewingHistory && (
+            <button
+              className={`font-inter text-neutral-0 flex w-full cursor-pointer items-center justify-center gap-0.5 rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700 focus:outline-2 focus:outline-offset-3 focus:outline-neutral-600 disabled:cursor-not-allowed ${isViewingHistory ? "bg-neutral-700 hover:bg-neutral-700" : ""}`}
+              onClick={() => submitCode(code, language)}
+              disabled={isSubmitting || !code.trim() || isViewingHistory}
+            >
+              <PlusIcon />
+              <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
+                Submit For Review
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </div>

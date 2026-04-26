@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
+import toast from "react-hot-toast";
 
 export const useReviewStore = create((set, get) => ({
   isSubmitting: false,
@@ -19,7 +20,9 @@ export const useReviewStore = create((set, get) => ({
         reviewHistory: [res.data, ...get().reviewHistory],
         isViewingHistory: true,
       });
+      toast.success(`Review results are now ready.`);
     } catch (error) {
+      toast.error(`${error.response.data.message}`);
       console.log(`Error in submitCode: ${error.message}`);
       throw new Error(error);
     } finally {

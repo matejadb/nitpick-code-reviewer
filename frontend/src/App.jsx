@@ -9,6 +9,8 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ActivateAccountPage from "./pages/ActivateAccountPage";
 
+import { Toaster } from "react-hot-toast";
+
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
 
@@ -38,6 +40,18 @@ function App() {
         <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="/activate-account" element={<ActivateAccountPage />} />
       </Routes>
+
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          success: {
+            iconTheme: {
+              primary: "#21c16b",
+              secondary: "#ffffff",
+            },
+          },
+        }}
+      />
     </>
   );
 }

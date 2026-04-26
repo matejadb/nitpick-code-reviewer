@@ -29,9 +29,6 @@ export const register = async (req, res) => {
 			password: hashedPassword,
 			verificationToken,
 		});
-
-		// generate jwt
-		// generateToken(newUser._id, res);
 		await newUser.save();
 
 		await sendVerificationMail(email, verificationToken);

@@ -6,6 +6,7 @@ import GoogleIcon from "../ui/GoogleIcon";
 import { Link, useNavigate } from "react-router-dom";
 import InformationIcon from "../ui/InformationIcon";
 import { useAuthStore } from "../store/useAuthStore";
+import toast from "react-hot-toast";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -18,25 +19,36 @@ function RegisterPage() {
   const { isRegistering, register } = useAuthStore();
 
   function validateForm() {
-    if (!formData.email.trim()) return alert("Email is required");
-    if (!/\S+@\S+\.\S+/.test(formData.email))
-      return alert("Invalid email format");
-    if (!formData.password) return alert("Password is requried");
-    if (formData.password.length < 8)
-      return alert("Password must be at least 8 characters");
+    if (!formData.email.trim()) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      toast.error("Invalid email format.");
+      return false;
+    }
+    if (!formData.password) {
+      toast.error("Password is requried.");
+      return false;
+    }
+    if (formData.password.length < 8) {
+      toast.error("Password must be at least 8 characters.");
+      return false;
+    }
 
     return true;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     try {
       const success = validateForm();
 
-      if (success) register(formData);
-
-      navigate("/activate-account");
+      if (success) {
+        await register(formData);
+        navigate("/activate-account");
+      }
     } catch (error) {
       throw new Error(`Something went wrong in RegisterPage. ${error.message}`);
     }
