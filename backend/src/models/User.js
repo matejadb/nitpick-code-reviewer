@@ -22,6 +22,13 @@ const userSchema = new mongoose.Schema({
 		type: Date,
 		default: () => new Date(Date.now() + 24 * 60 * 60 * 1000),
 	},
+	resetPasswordToken: {
+		type: String,
+	},
+	resetPasswordTokenExpiry: {
+		type: Date,
+		default: () => new Date(Date.now() + 60 * 60 * 1000),
+	},
 });
 
 const User = mongoose.model('User', userSchema);

@@ -3,7 +3,10 @@ import crypto from 'crypto';
 
 import { generateToken } from '../lib/utils.js';
 import User from '../models/User.js';
-import { sendVerificationMail } from '../lib/nodemailer.js';
+import {
+	sendPasswordResetMail,
+	sendVerificationMail,
+} from '../lib/nodemailer.js';
 
 export const register = async (req, res) => {
 	const { email, password } = req.body;
@@ -114,5 +117,58 @@ export const checkAuth = (req, res) => {
 	} catch (error) {
 		console.log(`Error in checkAuth controller: ${error.message}`);
 		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const forgotPassword = async (req, res) => {
+	try {
+		const { email } = req.body;
+		const user = await User.findOne({ email });
+
+		if (!user)
+			return res.status(200).json({
+				message: `We’ve sent you an email with instructions to reset your password.`,
+			});
+
+		const resetPasswordToken = crypto.randomBytes(32).toString('hex');
+
+		user.resetPasswordToken = resetPasswordToken;
+		user.resetPasswordTokenExpiry = new Date(Date.now() + 60 * 60 * 1000);
+
+		await user.save();
+
+		await sendPasswordResetMail(email, resetPasswordToken);
+		res.status(200).json({
+			message: `We’ve sent you an email with instructions to reset your password.`,
+		});
+	} catch (error) {
+		res.status(500).json({ message: `Internal server error.` });
+	}
+};
+
+export const resetPassword = async (req, res) => {
+	try {
+		const token = req.query.token;
+		const { newPassword } = req.body;
+
+		const user = await User.findOne({ resetPasswordToken: token });
+		if (!user) return res.status(404).json({ message: `User not found` });
+
+		const now = new Date();
+
+		if (now > user.resetPasswordTokenExpiry)
+			return res.status(400).json({ message: `Token has expired.` });
+
+		const salt = await bcrypt.genSalt(10);
+		const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+		user.password = hashedPassword;
+		user.resetPasswordToken = undefined;
+		user.resetPasswordTokenExpiry = undefined;
+
+		await user.save();
+		res.status(200).json({ message: `Password changed successfully.` });
+	} catch (error) {
+		res.status(500).json({ message: `Internal server error.` });
 	}
 };
