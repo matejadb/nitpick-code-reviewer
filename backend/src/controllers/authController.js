@@ -64,7 +64,7 @@ export const verifyEmail = async (req, res) => {
 		user.isVerified = true;
 		user.verificationToken = null;
 		user.verificationTokenExpiry = null;
-
+		user.resetPasswordTokenExpiry = null;
 		await user.save();
 
 		res.status(200).json({ isVerified: true });
@@ -165,7 +165,7 @@ export const resetPassword = async (req, res) => {
 		user.password = hashedPassword;
 		user.resetPasswordToken = null;
 		user.resetPasswordTokenExpiry = null;
-
+		user.verificationTokenExpiry = null;
 		await user.save();
 		res.status(200).json({ message: `Password changed successfully.` });
 	} catch (error) {
