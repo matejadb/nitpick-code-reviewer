@@ -62,8 +62,8 @@ export const verifyEmail = async (req, res) => {
 				.json({ message: 'Verification token has expired.' });
 
 		user.isVerified = true;
-		user.verificationToken = undefined;
-		user.verificationTokenExpiry = undefined;
+		user.verificationToken = null;
+		user.verificationTokenExpiry = null;
 
 		await user.save();
 
@@ -163,8 +163,8 @@ export const resetPassword = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(newPassword, salt);
 
 		user.password = hashedPassword;
-		user.resetPasswordToken = undefined;
-		user.resetPasswordTokenExpiry = undefined;
+		user.resetPasswordToken = null;
+		user.resetPasswordTokenExpiry = null;
 
 		await user.save();
 		res.status(200).json({ message: `Password changed successfully.` });
