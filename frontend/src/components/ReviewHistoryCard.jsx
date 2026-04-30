@@ -3,10 +3,12 @@ import { useReviewStore } from "../store/useReviewStore";
 import DeleteIcon from "../ui/DeleteIcon";
 
 function ReviewHistoryCard({ review }) {
-  const { reviewResult, selectReview } = useReviewStore();
+  const { reviewResult, selectReview, deleteReview } = useReviewStore();
 
-  function handleReviewDelete() {
-    alert(`You want to delete ${review._id}`);
+  function handleReviewDelete(e) {
+    e.stopPropagation();
+
+    deleteReview(review._id);
   }
 
   return (
