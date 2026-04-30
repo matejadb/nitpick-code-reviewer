@@ -6,6 +6,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useReviewStore } from "../store/useReviewStore";
 import Results from "../components/Results";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 function HomePage() {
   const { authUser, isLoggingOut } = useAuthStore();
@@ -28,6 +29,12 @@ function HomePage() {
       <Navbar onSetMenuOpen={setIsMenuOpen} />
       {authUser && (
         <div className="flex min-h-0 flex-1">
+          {isMenuOpen && (
+            <div
+              className="fixed inset-0 z-50 bg-neutral-900/50 transition-all duration-300 lg:hidden"
+              onClick={() => setIsMenuOpen(false)}
+            ></div>
+          )}
           <Sidebar isMenuOpen={isMenuOpen} onSetMenuOpen={setIsMenuOpen} />
           <div className="flex min-h-0 flex-1 flex-col">
             {/* Mobile tab bar */}

@@ -56,3 +56,23 @@ export const getReviews = async (req, res) => {
 		res.status(500).json({ message: 'Internal server error' });
 	}
 };
+
+export const deleteReview = async (req, res) => {
+	try {
+		const reviewId = req.params.id;
+
+		const review = await Review.findById(reviewId);
+
+		if (!review) return res.status(404).json({ message: 'Review not found' });
+
+		if (review.userId.toString() !== req.user._id.toString())
+			return res
+				.status(403)
+				.json({ message: `You can only delete your own reviews` });
+
+		await review.deleteOne();
+		res.status(200).json({ message: `Review successfully deleted` });
+	} catch (error) {
+		res.status(500).json({ message: `Internal server error.` });
+	}
+};

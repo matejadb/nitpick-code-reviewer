@@ -39,6 +39,7 @@ function CodeEditor() {
             height="100%"
             language={language}
             theme={theme}
+            loading={<LoadingLineWave />}
             options={{
               wordWrap: "on",
             }}

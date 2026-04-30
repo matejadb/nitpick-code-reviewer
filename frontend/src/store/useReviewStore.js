@@ -8,6 +8,7 @@ export const useReviewStore = create((set, get) => ({
   reviewResult: {},
   isViewingHistory: false,
   isFetchingReviews: false,
+  isDeletingReview: false,
   reviewHistory: [],
   language: "javascript",
 
@@ -28,6 +29,29 @@ export const useReviewStore = create((set, get) => ({
       throw new Error(error);
     } finally {
       set({ isSubmitting: false });
+    }
+  },
+
+  deleteReview: async (reviewId) => {
+    set({ isDeletingReview: true });
+    try {
+      await axiosInstance.delete(`/review/${reviewId}`);
+
+      set({
+        reviewHistory: get().reviewHistory.filter(
+          (review) => review._id !== reviewId,
+        ),
+      });
+
+      if (get().reviewResult._id === reviewId)
+        set({ reviewResult: {}, isViewingHistory: false, code: "" });
+
+      toast.success(`Review successfully deleted`);
+    } catch (error) {
+      toast.error(`${error.response.data.message}`);
+      console.log(`Error in deleteReview: ${error.message}`);
+    } finally {
+      set({ isDeletingReview: false });
     }
   },
 
