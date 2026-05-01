@@ -7,6 +7,7 @@ import {
 	sendPasswordResetMail,
 	sendVerificationMail,
 } from '../lib/nodemailer.js';
+import Review from '../models/Review.js';
 
 export const register = async (req, res) => {
 	const { email, password } = req.body;
@@ -108,6 +109,30 @@ export const logout = (req, res) => {
 	} catch (error) {
 		console.log(`Error in logout controller: ${error.message}`);
 		res.status(500).json({ message: 'Internal server error' });
+	}
+};
+
+export const deleteUser = async (req, res) => {
+	try {
+		const id = req.params.id;
+
+		const user = await User.findById(id);
+
+		if (!user) return res.status(404).json({ message: `User not found.` });
+
+		if (user._id.toString() !== req.user._id.toString())
+			return res
+				.status(403)
+				.json({ message: `You can only delete your own account.` });
+
+		await Review.deleteMany({ userId: id });
+
+		await user.deleteOne();
+
+		res.cookie('jwt', '', { maxAge: 0 });
+		res.status(200).json({ message: `User successfully deleted` });
+	} catch (error) {
+		res.status(500).json({ message: `Internal server error.` });
 	}
 };
 
