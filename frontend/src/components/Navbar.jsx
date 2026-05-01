@@ -99,12 +99,14 @@ function Navbar({ onSetMenuOpen }) {
             <UserAvatar email={authUser?.email ?? "?"} />
             <div className="hidden lg:flex lg:flex-col lg:items-start">
               <span className="text-sm font-medium text-white">{username}</span>
-              <span className="text-xs text-neutral-400">{authUser?.email}</span>
+              <span className="text-xs text-neutral-400">
+                {authUser?.email}
+              </span>
             </div>
           </button>
 
           {isOpen && (
-            <div className="absolute top-full right-0 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900 py-1 shadow-lg">
+            <div className="absolute top-full right-0 z-100 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900 py-1 shadow-lg">
               <button
                 type="button"
                 onClick={() => setActiveModal("logout")}
