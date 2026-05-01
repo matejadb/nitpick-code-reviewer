@@ -43,7 +43,7 @@ function App() {
       </Routes>
 
       <Toaster
-        position="top-right"
+        position="top-center"
         toastOptions={{
           success: {
             iconTheme: {

@@ -1,17 +1,27 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Logo from "./Logo";
 import MenuIcon from "../ui/MenuIcon";
 import { useAuthStore } from "../store/useAuthStore";
 import { UserAvatar } from "./UserAvatar";
-import { createPortal } from "react-dom";
 import ConfirmModal from "./ConfirmModal";
+
+const MODALS = {
+  logout: {
+    title: "Are you sure you want to log out?",
+    confirmLabel: "Log out",
+  },
+  delete: {
+    title: "Are you sure you want to delete your account?",
+    description: "This action cannot be undone.",
+    confirmLabel: "Delete",
+  },
+};
 
 function Navbar({ onSetMenuOpen }) {
   const { logout, authUser, deleteAccount } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [isDeleteUserModalOpen, setIsDeleteUserModalOpen] = useState(false);
-
+  const [activeModal, setActiveModal] = useState(null);
   const dropdownRef = useRef(null);
 
   const username = authUser?.email.split("@")[0];
@@ -26,63 +36,40 @@ function Navbar({ onSetMenuOpen }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  function handleConfirm() {
+    if (activeModal === "logout") logout();
+    if (activeModal === "delete") deleteAccount(authUser._id);
+    setActiveModal(null);
+    setIsOpen(false);
+  }
+
+  const modal = MODALS[activeModal];
+
   return (
     <>
-      {isLogoutModalOpen &&
+      {activeModal &&
         createPortal(
-          <ConfirmModal setIsModalOpen={setIsLogoutModalOpen}>
-            {" "}
+          <ConfirmModal setIsModalOpen={() => setActiveModal(null)}>
             <div className="flex flex-col gap-2">
               <h1 className="font-inter text-neutral-0 text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-                Are you sure you want to log out?
+                {modal.title}
               </h1>
+              {modal.description && (
+                <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
+                  {modal.description}
+                </p>
+              )}
             </div>
             <div className="flex items-center justify-end gap-4">
               <button
                 className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-red-700"
-                onClick={() => {
-                  logout();
-                  setIsOpen(false);
-                }}
+                onClick={handleConfirm}
               >
-                Logout
+                {modal.confirmLabel}
               </button>
               <button
                 className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500/50 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-blue-500"
-                onClick={() => setIsLogoutModalOpen(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </ConfirmModal>,
-          document.body,
-        )}
-
-      {isDeleteUserModalOpen &&
-        createPortal(
-          <ConfirmModal setIsModalOpen={setIsDeleteUserModalOpen}>
-            {" "}
-            <div className="flex flex-col gap-2">
-              <h1 className="font-inter text-neutral-0 text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-                Are you sure you want to delete your account?
-              </h1>
-              <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-                This action cannot be undone.
-              </p>
-            </div>
-            <div className="flex items-center justify-end gap-4">
-              <button
-                className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-red-700"
-                onClick={() => {
-                  deleteAccount(authUser._id);
-                  setIsOpen(false);
-                }}
-              >
-                Delete
-              </button>
-              <button
-                className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500/50 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-blue-500"
-                onClick={() => setIsDeleteUserModalOpen(false)}
+                onClick={() => setActiveModal(null)}
               >
                 Cancel
               </button>
@@ -112,9 +99,7 @@ function Navbar({ onSetMenuOpen }) {
             <UserAvatar email={authUser?.email ?? "?"} />
             <div className="hidden lg:flex lg:flex-col lg:items-start">
               <span className="text-sm font-medium text-white">{username}</span>
-              <span className="text-xs text-neutral-400">
-                {authUser?.email}
-              </span>
+              <span className="text-xs text-neutral-400">{authUser?.email}</span>
             </div>
           </button>
 
@@ -122,14 +107,14 @@ function Navbar({ onSetMenuOpen }) {
             <div className="absolute top-full right-0 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900 py-1 shadow-lg">
               <button
                 type="button"
-                onClick={() => setIsLogoutModalOpen(true)}
+                onClick={() => setActiveModal("logout")}
                 className="w-full cursor-pointer px-4 py-2 text-left text-sm text-neutral-200 transition-colors hover:bg-neutral-800"
               >
                 Log out
               </button>
               <button
                 type="button"
-                onClick={() => setIsDeleteUserModalOpen(true)}
+                onClick={() => setActiveModal("delete")}
                 className="w-full cursor-pointer px-4 py-2 text-left text-sm text-rose-400 transition-colors hover:bg-neutral-800"
               >
                 Delete account
