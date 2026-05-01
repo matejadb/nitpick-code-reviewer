@@ -8,6 +8,7 @@ export const useAuthStore = create((set) => ({
   isRegistering: false,
   isLoggingIn: false,
   isLoggingOut: false,
+  isDeletingAccount: false,
   isCheckingAuth: true,
   isSendingResetLink: false,
   isResettingPassword: false,
@@ -93,6 +94,21 @@ export const useAuthStore = create((set) => ({
       throw new Error(error);
     } finally {
       set({ isSendingResetLink: false });
+    }
+  },
+
+  deleteAccount: async (id) => {
+    set({ isDeletingAccount: true });
+    try {
+      await axiosInstance.delete(`/auth/${id}`);
+      useReviewStore.getState().resetReview();
+      set({ authUser: null });
+      toast.success(`Account deleted.`);
+    } catch (error) {
+      toast.error(`${error.response.data.message}`);
+      console.log(`Error in deleteAccount: ${error.message}`);
+    } finally {
+      set({ isDeletingAccount: false });
     }
   },
 

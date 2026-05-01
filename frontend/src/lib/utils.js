@@ -8,3 +8,7 @@ export function formatDate(date) {
     hour12: false,
   });
 }
+
+export function formatUsername(username) {
+  return username.split("@")[0].charAt(0).toUpperCase();
+}
