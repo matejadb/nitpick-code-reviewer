@@ -6,7 +6,7 @@ import { useAuthStore } from "../store/useAuthStore";
 import { useReviewStore } from "../store/useReviewStore";
 import Results from "../components/Results";
 import LoadingSpinner from "../components/LoadingSpinner";
-import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+// import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 function HomePage() {
   const { authUser, isLoggingOut } = useAuthStore();

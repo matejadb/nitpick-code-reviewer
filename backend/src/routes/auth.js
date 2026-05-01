@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	checkAuth,
+	deleteUser,
 	forgotPassword,
 	login,
 	logout,
@@ -21,5 +22,7 @@ router.post('/reset-password', resetPassword);
 
 router.get('/verify-email', verifyEmail);
 router.get('/check', protectedRoute, checkAuth);
+
+router.delete('/:id', protectedRoute, deleteUser);
 
 export default router;
