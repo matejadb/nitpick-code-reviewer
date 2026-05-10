@@ -1,5 +1,6 @@
 import Editor from "@monaco-editor/react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import PlusIcon from "../ui/PlusIcon";
 import { Dropdown } from "./Dropdown";
 import { useReviewStore } from "../store/useReviewStore";
@@ -8,6 +9,7 @@ import { THEMES } from "../constants/THEMES.js";
 import LoadingLineWave from "./LoadingLineWave.jsx";
 
 function CodeEditor() {
+  const { t } = useTranslation();
   const {
     isSubmitting,
     code,
@@ -60,7 +62,7 @@ function CodeEditor() {
                 <>
                   <PlusIcon />
                   <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
-                    Submit For Review
+                    {t("codeEditor.submitForReview")}
                   </span>
                 </>
               )}

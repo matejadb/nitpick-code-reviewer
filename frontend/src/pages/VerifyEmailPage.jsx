@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../store/useAuthStore";
 import Logo from "../components/Logo";
 
 function VerifyEmailPage() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
 
@@ -22,10 +24,10 @@ function VerifyEmailPage() {
 
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-neutral-0 font-inter text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-            Account activated
+            {t("verifyEmail.title")}
           </h2>
           <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-            You can close this page now and log in.
+            {t("verifyEmail.subtitle")}
           </p>
         </div>
 
@@ -34,7 +36,7 @@ function VerifyEmailPage() {
           type="submit"
           className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700 focus:outline-2 focus:outline-offset-3 focus:outline-neutral-600 disabled:cursor-not-allowed"
         >
-          <Link to="/login">Go to Login page</Link>
+          <Link to="/login">{t("verifyEmail.goToLogin")}</Link>
         </button>
       </div>
     </div>

@@ -1,28 +1,31 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslation } from "react-i18next";
 import Logo from "./Logo";
 import MenuIcon from "../ui/MenuIcon";
 import { useAuthStore } from "../store/useAuthStore";
 import { UserAvatar } from "./UserAvatar";
 import ConfirmModal from "./ConfirmModal";
-
-const MODALS = {
-  logout: {
-    title: "Are you sure you want to log out?",
-    confirmLabel: "Log out",
-  },
-  delete: {
-    title: "Are you sure you want to delete your account?",
-    description: "This action cannot be undone.",
-    confirmLabel: "Delete",
-  },
-};
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 function Navbar({ onSetMenuOpen }) {
+  const { t } = useTranslation();
   const { logout, authUser, deleteAccount } = useAuthStore();
   const [isOpen, setIsOpen] = useState(false);
   const [activeModal, setActiveModal] = useState(null);
   const dropdownRef = useRef(null);
+
+  const MODALS = {
+    logout: {
+      title: t("navbar.logoutConfirm"),
+      confirmLabel: t("common.logout"),
+    },
+    delete: {
+      title: t("navbar.deleteConfirm"),
+      description: t("navbar.deleteWarning"),
+      confirmLabel: t("navbar.deleteAccount"),
+    },
+  };
 
   const username = authUser?.email.split("@")[0];
 
@@ -71,7 +74,7 @@ function Navbar({ onSetMenuOpen }) {
                 className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500/50 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-blue-500"
                 onClick={() => setActiveModal(null)}
               >
-                Cancel
+                {t("common.cancel")}
               </button>
             </div>
           </ConfirmModal>,
@@ -90,39 +93,44 @@ function Navbar({ onSetMenuOpen }) {
           <Logo />
         </div>
 
-        <div className="relative" ref={dropdownRef}>
-          <button
-            type="button"
-            onClick={() => setIsOpen((o) => !o)}
-            className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1.5 transition-all duration-300 hover:bg-neutral-700 lg:hover:bg-neutral-900"
-          >
-            <UserAvatar email={authUser?.email ?? "?"} />
-            <div className="hidden lg:flex lg:flex-col lg:items-start">
-              <span className="text-sm font-medium text-white">{username}</span>
-              <span className="text-xs text-neutral-400">
-                {authUser?.email}
-              </span>
-            </div>
-          </button>
+        <div className="flex items-center gap-4">
+          <LanguageSwitcher />
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsOpen((o) => !o)}
+              className="flex cursor-pointer items-center gap-3 rounded-lg px-2 py-1.5 transition-all duration-300 hover:bg-neutral-700 lg:hover:bg-neutral-900"
+            >
+              <UserAvatar email={authUser?.email ?? "?"} />
+              <div className="hidden lg:flex lg:flex-col lg:items-start">
+                <span className="text-sm font-medium text-white">
+                  {username}
+                </span>
+                <span className="text-xs text-neutral-400">
+                  {authUser?.email}
+                </span>
+              </div>
+            </button>
 
-          {isOpen && (
-            <div className="absolute top-full right-0 z-100 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900 py-1 shadow-lg">
-              <button
-                type="button"
-                onClick={() => setActiveModal("logout")}
-                className="w-full cursor-pointer px-4 py-2 text-left text-sm text-neutral-200 transition-colors hover:bg-neutral-800"
-              >
-                Log out
-              </button>
-              <button
-                type="button"
-                onClick={() => setActiveModal("delete")}
-                className="w-full cursor-pointer px-4 py-2 text-left text-sm text-rose-400 transition-colors hover:bg-neutral-800"
-              >
-                Delete account
-              </button>
-            </div>
-          )}
+            {isOpen && (
+              <div className="absolute top-full right-0 z-100 mt-2 w-48 rounded-lg border border-neutral-700 bg-neutral-900 py-1 shadow-lg">
+                <button
+                  type="button"
+                  onClick={() => setActiveModal("logout")}
+                  className="w-full cursor-pointer px-4 py-2 text-left text-sm text-neutral-200 transition-colors hover:bg-neutral-800"
+                >
+                  {t("common.logout")}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveModal("delete")}
+                  className="w-full cursor-pointer px-4 py-2 text-left text-sm text-rose-400 transition-colors hover:bg-neutral-800"
+                >
+                  {t("navbar.deleteAccount")}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
     </>

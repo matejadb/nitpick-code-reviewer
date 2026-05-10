@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { createPortal } from "react-dom";
 import { formatDate } from "../lib/utils";
 import { useReviewStore } from "../store/useReviewStore";
@@ -6,6 +7,7 @@ import DeleteIcon from "../ui/DeleteIcon";
 import ConfirmModal from "./ConfirmModal";
 
 function ReviewHistoryCard({ review }) {
+  const { t } = useTranslation();
   const { reviewResult, selectReview, deleteReview } = useReviewStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,10 +25,10 @@ function ReviewHistoryCard({ review }) {
             {" "}
             <div className="flex flex-col gap-2">
               <h1 className="font-inter text-neutral-0 text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-                Are you sure you want to delete this review?
+                {t("errors.deleteReviewConfirm")}
               </h1>
               <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-                This action cannot be undone.
+                {t("errors.cannotBeUndone")}
               </p>
             </div>
             <div className="flex items-center justify-end gap-4">
@@ -34,13 +36,13 @@ function ReviewHistoryCard({ review }) {
                 className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-red-500 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-red-700"
                 onClick={handleReviewDelete}
               >
-                Delete
+                {t("common.delete")}
               </button>
               <button
                 className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500/50 px-4 py-2 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-300 hover:bg-blue-500"
                 onClick={() => setIsModalOpen(false)}
               >
-                Cancel
+                {t("common.cancel")}
               </button>
             </div>
           </ConfirmModal>,

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { useAuthStore } from "../store/useAuthStore";
 
@@ -11,6 +12,7 @@ import GoogleIcon from "../ui/GoogleIcon";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,10 +42,10 @@ function LoginPage() {
 
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-neutral-0 font-inter text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-            Welcome to Nitpick
+            {t("login.title")}
           </h2>
           <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-            Please log in to continue
+            {t("login.subtitle")}
           </p>
         </div>
 
@@ -58,7 +60,7 @@ function LoginPage() {
                 htmlFor="mail"
                 className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px] hover:cursor-pointer"
               >
-                Email Address
+                {t("login.emailLabel")}
               </label>
             </div>
             <div className="flex overflow-hidden rounded-lg border border-neutral-600 outline-neutral-600 transition-all duration-200 hover:bg-neutral-800 has-focus:outline-2 has-focus:outline-offset-3">
@@ -67,7 +69,7 @@ function LoginPage() {
                 id="mail"
                 name="mail"
                 className="font-inter text-neutral-0 w-full flex-1 px-4 py-3 text-sm leading-[1.3] font-normal tracking-[-0.2px] placeholder-neutral-500 focus:outline-none"
-                placeholder="email@example.com"
+                placeholder={t("login.emailPlaceholder")}
                 value={formData.email}
                 onChange={(e) =>
                   setFormData({ ...formData, email: e.target.value })
@@ -83,14 +85,14 @@ function LoginPage() {
                 htmlFor="password"
                 className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px] hover:cursor-pointer"
               >
-                Password
+                {t("login.passwordLabel")}
               </label>
 
               <Link
                 to="/forgot-password"
                 className="font-inter text-[12px] leading-[1.4] font-normal text-neutral-400 underline underline-offset-2 transition-all duration-200 hover:text-blue-500"
               >
-                Forgot
+                {t("login.forgotPassword")}
               </Link>
             </div>
             <div className="flex overflow-hidden rounded-lg border border-neutral-600 pr-4 outline-neutral-600 transition-all duration-200 hover:bg-neutral-800 has-focus:outline-2 has-focus:outline-offset-3">
@@ -121,19 +123,19 @@ function LoginPage() {
             className="font-inter text-neutral-0 cursor-pointer rounded-lg bg-blue-500 px-4 py-3 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px] transition-all duration-200 hover:bg-blue-700 focus:outline-2 focus:outline-offset-3 focus:outline-neutral-600 disabled:cursor-not-allowed"
             disabled={isLoggingIn}
           >
-            {isLoggingIn ? "Loading..." : "Login"}
+            {isLoggingIn ? t("common.loading") : t("login.signIn")}
           </button>
         </form>
 
         <div className="w-full border-b border-neutral-800"></div>
 
         <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-          No account yet?{" "}
+          {t("login.noAccount")}{" "}
           <Link
             to="/register"
             className="text-neutral-0 transition-all duration-200 hover:text-blue-500"
           >
-            Register Now
+            {t("login.signUp")}
           </Link>
         </p>
       </div>

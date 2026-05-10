@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useReviewStore } from "../store/useReviewStore";
 import CloseIcon from "../ui/CloseIcon";
 import PlusIcon from "../ui/PlusIcon";
@@ -6,6 +7,7 @@ import Logo from "./Logo";
 import ReviewHistoryCard from "./ReviewHistoryCard";
 
 function Sidebar({ isMenuOpen, onSetMenuOpen }) {
+  const { t } = useTranslation();
   const { reviewHistory, resetReview, isFetchingReviews } = useReviewStore();
 
   return (
@@ -35,7 +37,7 @@ function Sidebar({ isMenuOpen, onSetMenuOpen }) {
         >
           <PlusIcon />
           <span className="font-inter text-neutral-0 text-[16px] leading-[1.2] font-semibold tracking-[-0.3px]">
-            Analyze Code
+            {t("sidebar.analyzeCode")}
           </span>
         </button>
 
@@ -44,7 +46,7 @@ function Sidebar({ isMenuOpen, onSetMenuOpen }) {
 
       <div className="flex min-h-0 flex-1 flex-col gap-2">
         <p className="font-inter text-sm leading-[1.2] font-normal tracking-[0.2px] text-neutral-500">
-          Your Reviews
+          {t("sidebar.yourReviews")}
         </p>
 
         {/* Review History Goes Here */}

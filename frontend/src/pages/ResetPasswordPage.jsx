@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Logo from "../components/Logo";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import ShowPassword from "../ui/ShowPassword";
@@ -9,6 +10,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import toast from "react-hot-toast";
 
 function ResetPasswordPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -23,15 +25,15 @@ function ResetPasswordPage() {
 
   function validatePasswords() {
     if (!newPassword || !confirmNewPassword) {
-      toast.error("Password is required.");
+      toast.error(t("resetPassword.passwordRequired"));
       return false;
     }
     if (newPassword.length < 8 || confirmNewPassword.length < 8) {
-      toast.error("Password must be at least 8 characters.");
+      toast.error(t("resetPassword.passwordTooShort"));
       return false;
     }
     if (newPassword !== confirmNewPassword) {
-      toast.error("Passwords do not match.");
+      toast.error(t("resetPassword.passwordsDoNotMatch"));
       return false;
     }
 
@@ -62,10 +64,10 @@ function ResetPasswordPage() {
 
         <div className="flex flex-col items-center gap-2 text-center">
           <h2 className="text-neutral-0 font-inter text-2xl leading-[1.2] font-bold tracking-[-0.5px]">
-            Reset Your Password
+            {t("resetPassword.title")}
           </h2>
           <p className="font-inter text-sm leading-[1.3] font-normal tracking-[-0.2px] text-neutral-300">
-            Choose a new password to secure your account.
+            {t("resetPassword.subtitle")}
           </p>
         </div>
 
@@ -80,7 +82,7 @@ function ResetPasswordPage() {
                 htmlFor="new-password"
                 className="font-inter text-neutral-0 text-sm leading-[1.2] font-medium tracking-[-0.2px] hover:cursor-pointer"
               >
-                New Password
+                {t("resetPassword.newPasswordLabel")}
               </label>
             </div>
             <div className="flex overflow-hidden rounded-lg border border-neutral-600 pr-4 outline-neutral-600 transition-all duration-200 hover:bg-neutral-800 has-focus:outline-2 has-focus:outline-offset-3">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import CodeEditor from "../components/CodeEditor";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -9,6 +10,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 // import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 function HomePage() {
+  const { t } = useTranslation();
   const { authUser, isLoggingOut } = useAuthStore();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [manualTab, setManualTab] = useState(null);
@@ -47,7 +49,7 @@ function HomePage() {
                     : "text-neutral-500 hover:text-neutral-300"
                 }`}
               >
-                Editor
+                {t("home.editor")}
               </button>
               <button
                 onClick={() => setManualTab("results")}
@@ -57,7 +59,7 @@ function HomePage() {
                     : "text-neutral-500 hover:text-neutral-300"
                 }`}
               >
-                Results
+                {t("home.results")}
                 {critiquesList && (
                   <span className="ml-1.5 rounded-full bg-blue-500 px-1.5 py-0.5 text-xs text-white">
                     {critiquesList.length}

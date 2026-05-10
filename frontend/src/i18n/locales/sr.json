@@ -1,0 +1,140 @@
+{
+  "common": {
+    "cancel": "Otkaz",
+    "delete": "Izbriši",
+    "submit": "Pošalji",
+    "logout": "Odjava",
+    "loading": "Učitavanje...",
+    "error": "Greška",
+    "success": "Uspešno"
+  },
+  "navbar": {
+    "logoutConfirm": "Da li si siguran da želiš da se odjaviš?",
+    "deleteConfirm": "Da li si siguran da želiš da izbrišeš nalog?",
+    "deleteWarning": "Ova akcija se ne može poništiti.",
+    "deleteAccount": "Izbriši Nalog"
+  },
+  "home": {
+    "editor": "Urednik",
+    "results": "Rezultati"
+  },
+  "codeEditor": {
+    "submitForReview": "Pošalji Na Pregled",
+    "selectLanguage": "Odaberite Jezik",
+    "selectTheme": "Odaberite Temu"
+  },
+  "login": {
+    "title": "Dobrodošli Na Nitpick",
+    "subtitle": "Molimo vas prijavite se da nastavite",
+    "emailLabel": "Imejl adresa",
+    "emailPlaceholder": "email@example.com",
+    "passwordLabel": "Lozinka",
+    "forgotPassword": "Zaboravio",
+    "signIn": "Prijava",
+    "noAccount": "Nemaš nalog?",
+    "signUp": "Registruj se",
+    "orContinueWith": "Ili nastavite sa",
+    "continueWithGoogle": "Nastavite sa Guglom"
+  },
+  "register": {
+    "title": "Napravi Nalog",
+    "subtitle": "Pridruži se Nitpick danas",
+    "firstNameLabel": "Ime",
+    "firstNamePlaceholder": "Marko",
+    "lastNameLabel": "Prezime",
+    "lastNamePlaceholder": "Marković",
+    "emailLabel": "Imejl adresa",
+    "emailPlaceholder": "email@example.com",
+    "passwordLabel": "Lozinka",
+    "passwordHint": "Mora biti najmanje 8 karaktera",
+    "confirmPasswordLabel": "Potvrdi Lozinku",
+    "createAccount": "Napravi Nalog",
+    "haveAccount": "Već imaš nalog?",
+    "signIn": "Prijava",
+    "terms": "Prilikom registracije slažeš se sa našim Uslovima korišćenja i Politikom privatnosti",
+    "orSignUpWith": "Ili se registruj sa",
+    "continueWithGoogle": "Registruj se sa Guglom",
+    "atLeastEightChars": "Najmanje 8 karaktera",
+    "register": "Registruj se",
+    "alreadyHaveAccount": "Već imaš nalog?",
+    "emailRequired": "Imejl je obavezan.",
+    "invalidEmailFormat": "Nevalidna imejl adresa.",
+    "passwordRequired": "Lozinka je obavezna.",
+    "passwordTooShort": "Lozinka mora biti najmanje 8 karaktera."
+  },
+  "forgotPassword": {
+    "title": "Zaboravio si Lozinku?",
+    "subtitle": "Unesi svoju imejl adresu, pa ćemo ti poslati link za resetovanje.",
+    "emailLabel": "Imejl adresa",
+    "emailPlaceholder": "email@example.com",
+    "sendReset": "Pošalji Link Za Resetovanje",
+    "rememberPassword": "Sećaš se lozinke?",
+    "backToLogin": "Nazad Na Prijavu",
+    "emailRequired": "Imejl je obavezan.",
+    "invalidEmailFormat": "Nevalidna imejl adresa."
+  },
+  "resetPassword": {
+    "title": "Resetuj Lozinku",
+    "subtitle": "Unesi svoju novu lozinku",
+    "newPasswordLabel": "Nova Lozinka",
+    "confirmPasswordLabel": "Potvrdi Lozinku",
+    "resetPassword": "Resetuj Lozinku",
+    "passwordMismatch": "Lozinke se ne poklapaju",
+    "passwordRequired": "Lozinka je obavezna.",
+    "passwordTooShort": "Lozinka mora biti najmanje 8 karaktera.",
+    "passwordsDoNotMatch": "Lozinke se ne poklapaju."
+  },
+  "verifyEmail": {
+    "title": "Tvoj Nalog Je Aktiviran",
+    "subtitle": "Možeš zatvoriti ovu stranu i prijaviti se.",
+    "codeLabel": "Verifikacioni Kod",
+    "codePlaceholder": "000000",
+    "verify": "Verifikuj",
+    "resendCode": "Pošalji Kod Ponovo",
+    "didntReceive": "Nisaš dobio kod?",
+    "goToLogin": "Idi Na Stranu Za Prijavu"
+  },
+  "activateAccount": {
+    "title": "Poslali smo ti link za aktiviranje",
+    "subtitle": "Molimo proverite vašu imejl adresu i klikните na link da nastavite sa korišćenjem Nitpick.",
+    "activate": "Aktiviraj Nalog",
+    "accountActivated": "Nalog je uspešno aktiviran",
+    "alreadyActivated": "Već si aktivirao nalog?",
+    "loginNow": "Prijavi se Sada"
+  },
+  "sidebar": {
+    "reviewHistory": "Istorija Pregleda",
+    "noReviews": "Nema pregleda",
+    "deleteReview": "Izbriši Pregled",
+    "viewReview": "Pogledaj Pregled",
+    "analyzeCode": "Analiziraj Kod",
+    "yourReviews": "Tvoji Pregledi"
+  },
+  "results": {
+    "title": "Rezultati Analize",
+    "noResults": "Nema rezultata. Pošalji kod za analizu.",
+    "analysisResults": "Rezultati Analize",
+    "issues": "Problemi Pronađeni",
+    "issue": "problem",
+    "issues_plural": "problema",
+    "suggestions": "Sugestije",
+    "improvements": "Poboljšanja",
+    "submitCodeToSee": "Pošalji svoj kod da vidiš analizu.",
+    "noIssuesFound": "Nema pronađenih problema.",
+    "bug": "Greška",
+    "security": "Bezbednost",
+    "performance": "Performanse",
+    "style": "Stil",
+    "other": "Ostalo"
+  },
+  "errors": {
+    "invalidEmail": "Molimo unesite validnu imejl adresu",
+    "passwordTooShort": "Lozinka mora biti najmanje 6 karaktera",
+    "passwordMismatch": "Lozinke se ne poklapaju",
+    "emailAlreadyExists": "Imejl već postoji",
+    "invalidCredentials": "Nevalidna imejl adresa ili lozinka",
+    "somethingWentWrong": "Nešto je pošlo po zlu. Molimo pokušajte ponovo.",
+    "deleteReviewConfirm": "Da li si siguran da želiš da izbrisheš ovaj pregled?",
+    "cannotBeUndone": "Ova akcija se ne može poništiti."
+  }
+}

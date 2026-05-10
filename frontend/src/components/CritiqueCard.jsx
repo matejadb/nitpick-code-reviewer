@@ -1,33 +1,36 @@
+import { useTranslation } from "react-i18next";
+
 const CATEGORY_CONFIG = {
   bug: {
-    label: "Bug",
+    label: "bug",
     badge: "bg-red-500 text-neutral-0 border-red-500",
     border: "border-red-500",
   },
   security: {
-    label: "Security",
+    label: "security",
     badge: "bg-orange-500 text-neutral-0 border-orange-500",
     border: "border-orange-500",
   },
   performance: {
-    label: "Performance",
+    label: "performance",
     badge: "bg-blue-500 text-neutral-0 border-blue-500",
     border: "border-blue-500",
   },
   style: {
-    label: "Style",
+    label: "style",
     badge: "bg-purple-500 text-neutral-0 border-purple-500",
     border: "border-purple-500",
   },
 };
 
 const FALLBACK = {
-  label: "Other",
+  label: "other",
   badge: "bg-neutral-500 text-neutral-0 border-neutral-500",
   border: "border-neutral-500",
 };
 
 function CritiqueCard({ text, category }) {
+  const { t } = useTranslation();
   const config = CATEGORY_CONFIG[category] ?? FALLBACK;
 
   return (
@@ -35,7 +38,7 @@ function CritiqueCard({ text, category }) {
       <span
         className={`mb-2 inline-block rounded-full border px-2 py-0.5 text-xs font-semibold tracking-wide uppercase ${config.badge}`}
       >
-        {config.label}
+        {t(`results.${config.label}`)}
       </span>
       <p className="text-sm leading-relaxed text-neutral-200">{text}</p>
     </div>

@@ -1,0 +1,138 @@
+{
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "submit": "Submit",
+    "logout": "Log out",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "navbar": {
+    "logoutConfirm": "Are you sure you want to log out?",
+    "deleteConfirm": "Are you sure you want to delete your account?",
+    "deleteWarning": "This action cannot be undone.",
+    "deleteAccount": "Delete Account"
+  },
+  "home": {
+    "editor": "Editor",
+    "results": "Results"
+  },
+  "codeEditor": {
+    "submitForReview": "Submit For Review",
+    "selectLanguage": "Select Language",
+    "selectTheme": "Select Theme"
+  },
+  "login": {
+    "title": "Welcome to Nitpick",
+    "subtitle": "Please log in to continue",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "email@example.com",
+    "passwordLabel": "Password",
+    "forgotPassword": "Forgot",
+    "signIn": "Sign In",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "orContinueWith": "Or continue with",
+    "continueWithGoogle": "Continue with Google"
+  },
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Join Nitpick today",
+    "firstNameLabel": "First Name",
+    "firstNamePlaceholder": "John",
+    "lastNameLabel": "Last Name",
+    "lastNamePlaceholder": "Doe",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "email@example.com",
+    "passwordLabel": "Password",
+    "passwordHint": "Must be at least 8 characters",
+    "confirmPasswordLabel": "Confirm Password",
+    "createAccount": "Create Account",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "terms": "By signing up, you agree to our Terms of Service and Privacy Policy",
+    "orSignUpWith": "Or sign up with",
+    "continueWithGoogle": "Continue with Google",
+    "register": "Register",
+    "emailRequired": "Email is required.",
+    "invalidEmailFormat": "Invalid email format.",
+    "passwordRequired": "Password is required.",
+    "passwordTooShort": "Password must be at least 8 characters."
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "subtitle": "Enter your email to reset your password",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "email@example.com",
+    "sendReset": "Send Reset Link",
+    "rememberPassword": "Remember your password?",
+    "backToLogin": "Back to Login",
+    "emailRequired": "Email is required.",
+    "invalidEmailFormat": "Invalid email format."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "subtitle": "Enter your new password",
+    "newPasswordLabel": "New Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "resetPassword": "Reset Password",
+    "passwordMismatch": "Passwords do not match",
+    "passwordRequired": "Password is required.",
+    "passwordTooShort": "Password must be at least 8 characters.",
+    "passwordsDoNotMatch": "Passwords do not match."
+  },
+  "verifyEmail": {
+    "title": "Account Activated",
+    "subtitle": "You can close this page now and log in.",
+    "codeLabel": "Verification Code",
+    "codePlaceholder": "000000",
+    "verify": "Verify",
+    "resendCode": "Resend Code",
+    "didntReceive": "Didn't receive the code?",
+    "goToLogin": "Go to Login page"
+  },
+  "activateAccount": {
+    "title": "We sent you an activation link",
+    "subtitle": "Please check your email and click the link to continue using Nitpick.",
+    "activate": "Activate Account",
+    "accountActivated": "Account activated successfully",
+    "alreadyActivated": "Already activated your account?",
+    "loginNow": "Login Now"
+  },
+  "sidebar": {
+    "reviewHistory": "Review History",
+    "noReviews": "No reviews yet",
+    "deleteReview": "Delete Review",
+    "viewReview": "View Review",
+    "analyzeCode": "Analyze Code",
+    "yourReviews": "Your Reviews"
+  },
+  "results": {
+    "title": "Review Results",
+    "noResults": "No results yet. Submit code for review.",
+    "issues": "Issues Found",
+    "suggestions": "Suggestions",
+    "improvements": "Improvements",
+    "analysisResults": "Analysis Results",
+    "issue": "issue",
+    "issues_plural": "issues",
+    "submitCodeToSee": "Submit your code to see the analysis.",
+    "noIssuesFound": "No issues found.",
+    "bug": "Bug",
+    "security": "Security",
+    "performance": "Performance",
+    "style": "Style",
+    "other": "Other"
+  },
+  "errors": {
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
+    "emailAlreadyExists": "Email already exists",
+    "invalidCredentials": "Invalid email or password",
+    "somethingWentWrong": "Something went wrong. Please try again.",
+    "deleteReviewConfirm": "Are you sure you want to delete this review?",
+    "cannotBeUndone": "This action cannot be undone."
+  }
+}
