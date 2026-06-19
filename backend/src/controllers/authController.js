@@ -9,6 +9,8 @@ import {
 } from '../lib/nodemailer.js';
 import Review from '../models/Review.js';
 
+const isValidEmail = (email) => /\S+@\S+\.\S+/.test(email);
+
 export const register = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -16,6 +18,14 @@ export const register = async (req, res) => {
 		// field validation
 		if (!email || !password)
 			return res.status(400).json({ message: 'All fields are required' });
+
+		if (!isValidEmail(email))
+			return res.status(400).json({ message: 'Invalid email format' });
+
+		if (password.length < 8)
+			return res
+				.status(400)
+				.json({ message: 'Password must be at least 8 characters.' });
 
 		const user = await User.findOne({ email });
 
