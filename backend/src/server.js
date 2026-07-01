@@ -9,7 +9,9 @@ import authRoutes from './routes/auth.js';
 import reviewRoutes from './routes/review.js';
 
 import connectDB from './lib/db.js';
+import dns from 'dns';
 
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
